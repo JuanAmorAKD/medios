@@ -1,0 +1,148 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Clipping de Medios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dark-mode-toggle">
+            <div class="dark-mode-switch" id="darkModeToggle">
+                <div class="toggle">
+                    <i class="fas fa-sun"></i>
+                </div>
+            </div>
+        </div>
+        <h1>Sistema de Clipping de Medios</h1>
+        
+        <div class="input-section">
+            <h2>Agregar Contenido</h2>
+            <div class="input-group">
+                <textarea id="urlInput" placeholder="Ingrese uno o varios URLs (uno por línea)"></textarea>
+                <div style="display: flex;">
+                    <button id="addButton" class="btn btn-primary">Agregar Links</button>
+                    <button id="manualNoteBtn" class="manual-note-btn">Crear Nota Manual</button>
+                </div>
+                <div id="manualNoteForm" class="manual-note-form">
+                    <div class="form-group">
+                        <label for="manualNoteTitle">Título:</label>
+                        <input type="text" id="manualNoteTitle" placeholder="Ingrese el título de la nota">
+                    </div>
+                    <div class="form-group">
+                        <label for="manualNoteDescription">Descripción:</label>
+                        <textarea id="manualNoteDescription" placeholder="Ingrese la descripción de la nota"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualNoteImage">URL de imagen (opcional):</label>
+                        <input type="text" id="manualNoteImage" placeholder="https://ejemplo.com/imagen.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="manualNoteUrl">URL de la nota (opcional):</label>
+                        <input type="text" id="manualNoteUrl" placeholder="https://ejemplo.com/noticia">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="cancelManualNoteBtn" class="btn">Cancelar</button>
+                        <button id="submitManualNoteBtn" class="btn btn-primary">Crear Nota</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sections-container">
+            <div class="sections-controls">
+                <h2>Categorías</h2>
+                <div class="category-controls">
+                    <input type="text" id="newCategoryName" placeholder="Nombre de categoría">
+                    <button id="addCategoryBtn" class="btn">Agregar Categoría</button>
+                </div>
+                <ul id="categoriesList" class="categories-list">
+                    <!-- Las categorías se generarán dinámicamente con JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="clipping-area">
+            <div id="default" class="category-section active" style="display: none;">
+            </div>
+        </div>
+
+        <div class="export-section">
+            <button id="exportButton" class="btn btn-success">Exportar HTML</button>
+            <button id="viewToggleBtn" class="btn view-toggle-btn">Ver Listado</button>
+            
+            <div class="export-format-container">
+                <label>Exportar datos:</label>
+                <button id="exportJsonBtn" class="btn btn-primary">JSON</button>
+                <button id="exportXmlBtn" class="btn btn-primary">XML</button>
+            </div>
+            
+            <div class="import-container">
+                <label>Importar datos:</label>
+                <input type="file" id="importFileInput" class="import-file-input" accept=".json,.xml">
+                <button id="importBtn" class="btn import-btn">Importar</button>
+            </div>
+            
+            <div id="exportResult" class="export-result">
+                <div id="updateNotice" class="update-notice">
+                    <i class="fas fa-exclamation-triangle"></i> Se han detectado cambios en el contenido. 
+                    <button id="refreshExportBtn" class="btn refresh-btn">Actualizar Exportación</button>
+                </div>
+                <textarea id="exportedHtml" readonly></textarea>
+                <button id="copyButton" class="btn">Copiar al portapapeles</button>
+            </div>
+        </div>
+
+        <div id="listViewContainer" class="list-view-container">
+            <!-- List view content will be generated here -->
+        </div>
+
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Procesando URLs...</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const refreshExportBtn = document.getElementById('refreshExportBtn');
+            const updateNotice = document.getElementById('updateNotice');
+            const exportButton = document.getElementById('exportButton');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.querySelector('.toggle i').className = 'fas fa-moon';
+            }
+            
+            // Dark mode toggle functionality
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                // Save user preference
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    this.querySelector('.toggle i').className = 'fas fa-moon';
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    this.querySelector('.toggle i').className = 'fas fa-sun';
+                }
+            });
+            
+            refreshExportBtn.addEventListener('click', function() {
+                // Refrescar el HTML exportado
+                window.refreshExportHTML();
+            });
+            
+            // También escuchar al botón de exportar para asegurar que el aviso se oculta
+            exportButton.addEventListener('click', function() {
+                updateNotice.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
