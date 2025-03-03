@@ -1096,8 +1096,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to copy list view content to clipboard
     function copyListViewContent() {
         // Create a formatted version for email
-        let emailContent = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; width: 70%; color: #333;">
-            <h1 style="color: #2c3e50; padding-bottom: 10px; border-bottom: 1px solid #eee;">Clipping de Noticias</h1>`;
+        let emailContent = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; width: 70%; color: #333; background-color: transparent; background-color: rgba(255, 255, 255, 0);">
+            <h1 style="color: #2c3e50; padding-bottom: 10px; border-bottom: 1px solid #eee;">Resumen de Medios Matutino</h1>`;
             
         // Get categories in the order they appear in the sidebar
         const categoryElements = document.querySelectorAll('.categories-list li');
