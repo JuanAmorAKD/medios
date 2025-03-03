@@ -677,13 +677,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clipping de Noticias</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; width: 70%; }
+        body { font-family: arial, sans-serif; line-height: 1.6; color: #333; max-width: 700px; margin: auto auto; padding: 20px; width: 50%; }
         h1, h2 { color: #2c3e50; }
         h1 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 25px; }
-        .category { margin: 30px 0; }
+        .category { margin: 30px auto; }
         .category-title { border-bottom: 2px solid #3498db; padding-bottom: 5px; margin-bottom: 20px; }
         .item { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; }
-        .item-image-container { margin-right: 15px; width: 150px; }
+        .item-image-container{ margin-right: 15px; width: 150px; }
         .item-content { flex: 1; }
         .item-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #333; }
         .item-description { margin-bottom: 10px; color: #555; }
@@ -702,9 +702,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .category-title { font-size: 20px; }
             .item-title { font-size: 16px; }
         }
+    
     </style>
 </head>
 <body>
+<table role="presentation" width="80%" align="center" cellpadding="0" cellspacing="0" border="0"">
+    <tr>
+        <td align="left" style="padding: 20px; color: white;">
     <h1>Clipping de Noticias</h1>
 `;
 
@@ -762,6 +766,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         html += `
+  </td>
+    </tr>
+</table>
 </body>
 </html>`;
         
